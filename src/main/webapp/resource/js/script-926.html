@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript">
+   
+/*    var x = new Object();
+   x["name"] = new String("new");
+   x["phone"] = new String("010-22-225");
+   alert(x.phone);
+
+    var x ={};
+    x.name = "new";
+    x.phone = "010-12-1235";
+    
+    alert(x.name); */
+    
+
+/*    var json = [ 
+               {id : "1", title : "hello", "writer id" : "newlec"}, 
+               {id : "2", title : "good", "writer id" : "newlec"} 
+             ];
+   alert(json[1].title);
+   alert(json[1]["title"]);
+   alert(json[1]["writer id"]); */
+   
+   //var data=eval("[2,4,6]");
+   /* var data=JSON.parse("[2,4,6]");
+   alert(data[1]); */
+   
+   //var data=eval('({id : "1", title : "hello", "writer id" : "newlec"})');
+   /* var data=JSON.parse('{"id" : "1", "title" : "hello", "writer id" : "newlec"}');
+   alert(data.title); */
+   
+   /* var data=JSON.parse('{"id" : "1", "title" : "hello", "writer id" : "newlec"}');
+   alert(typeof data.title); */
+   
+   /* var data=[2,4,6,8,0];
+   //for(var i=0; i<data.length; i++)
+   /* for(var i in data)
+   alert(data[i]); */
+   
+/*    var entity={id:1, title:"hello", writerId:"newlec"};
+   for(var i in entity)
+      alert(entity[i]); */
+   
+   /* var add = new Function("x, y","return x+y");
+      alert(add(3,8)); */
+      
+   /* var add = function(x,y)
+   {
+      return x+y;
+   };
+   
+   alert(add(3,8,10)); */
+   
+/*    var add = function()
+   {
+      var sum = 0;
+      
+      for(var i=0; i<arguments.length; i++)
+         sum+=arguments[i];
+      
+      return sum;
+   };
+   alert(add(3,8,10)); */
+   
+/*    function f1(){
+      var a=1;
+      return function f2(){
+         return a;
+      }
+   }
+   
+   var f=f1();
+   var a=f();
+   alert(a); */
+   
+   /* var x,y;
+    x=prompt("x값을 입력하세요",0);
+   y=prompt("y값을 입력하세요",0);
+   x=parseInt(x);
+   y=parseInt(y);
+   alert(x,y); */
+
+   
+   /* function calcApp(){
+     var btnPrint = document.getElementById("btn-print");
+     btnPrint.onclick = btnPrintClick;
+     
+      function btnPrintClick(){
+            var x,y;
+             x=prompt("x값을 입력하세요",0);
+             y=prompt("y값을 입력하세요",0);
+             btnPrint.value=x+y;
+             /*btnPrint.text="text";     
+         }   
+      
+   }
+   window.onload = plus; 이건 전역 */
+   
+ function calcApp(){
+     var xText = document.getElementById("x");
+     var yText = document.getElementById("y");
+     var addButton = document.getElementById("add-button");
+     var resultText = document.getElementById("result");
+     
+     addButton.onclick = addButtonClick;
+     
+      function addButtonClick(){
+            var x,y;
+             x=parseInt(xText.value);
+             y=parseInt(yText.value);
+             
+             resultText.value=x+y;
+                   
+         }   
+      
+      }
+   window.onload = calcApp; 
+   
+  /* ----------------------- */ 
+   window.onload = function() {
+     var countLabel = document.getElementById("count-label");
+     var countButton = document.getElementById("count-button");
+     var timerId = null;
+     
+     var ex1 = document.getElementById("ex1");
+     ex1.style.marginTop = "0px";
+     
+     countButton.onclick = function(){
+      if(timerId == null)
+         timerId = setInterval(function(){
+            var count = parseInt(countLabel.textContent);
+            var marginTop = parseInt(ex1.style.marginTop);
+            
+          
+          
+          //목표치에 도달했을 경우
+          if(count <= 0){
+             clearInterval(timerId);
+             timerId = null;
+          }
+          
+          if(marginTop >= 100){
+             clearInterval(timerId);
+             timerId = null;
+          }
+          
+         // countLabet.textContent = count-1;
+         ex1.style.marginTop = (marginTop +1) + "px";
+         }, 30);
+     };
+     
+  };
+  
+  
+  /*--open a window 예제--------------*/
+  window.onload = function() {
+     var openButton = document.getElementById("open-button");
+     var movButton = document.getElementById("mov-button");
+     var transButton = document.getElementById("trans-button");
+     var iframe = window.frames[0];
+     
+     var win = null;
+  
+     openButton.onclick = function(){
+        //alert("tt");
+        if(win == null)
+           win=open("notice.html","_blank", "width=500px height=300px");
+      };
+     
+     movButton.onclick = function(){
+        if(win != null)
+           win.moveBy(-10, 0);
+        };
+     
+     transButton.onclick = function(){
+        //iframe.location.href="http://www.daum.net";
+        iframe.document.write("hello");
+        };
+    };
+    
+   /*--iframe 예제--------------*/
+/*      window.onload = function() {
+        var navButton = document.getElementById("nav-button");
+        var win = window.frames[0];
+     
+        navButton.onclick = function(){
+           win.location.href="http://www.newlecture.com";
+         };
+        
+        
+       }; */
+  
+    /*----노드 순회 예제----------*/
+    window.onload = function() {
+        var chButton = document.getElementById("ch-button");
+        var p = document.getElementById("p");      
+        
+        chButton.onclick = function(){
+           /* document.getElementById("p").style.backgroundColor = "#000000"; */
+           /* p.style["backgruond"] = ; 
+               p.["style"]["background"] = ;
+               p.style.backgroundColor = ; 
+               이 셋이 전부 같은 거!!
+           */
+           //p.style.backgroundColor = "blue";
+           alert(p.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling);
+           for(var node=p.firstChild; node != null; node = node.nextSibling)
+              alert(node.nodeType);
+         };
+        
+        
+       };
+      
+       /*----Selector 예제----------*/
+       window.onload = function() {
+           var chButton = document.querySelector("#ch-button1");
+           //var p = document.querySelector("#module1> div > div:first-child"); 
+           //var p = document.querySelector("#module1> div:first-child + div > div");
+           var divs = document.querySelectorAll("#module1 > div");
+           var p = divs[1].querySelector("div"); //아까는 한번에 했는데 지금하는거는 2단계에 걸쳐서 찾는다
+           
+           chButton.onclick = function(){
+              p.style.border = "solid 1px red";
+            };
+           
+           
+          }; 
+   
+      /*----속성 변경 예제----------*/
+   /*     window.onload = function() {
+           var chImgButton = document.querySelector("#ch-img-button");
+           var container = document.querySelector("#img-container");
+           var img = container.querySelector("img");
+              
+           chImgButton.onclick = function(){
+              img.src = "https://store-old.linefriends.com/wp-content/uploads/2015/09/figure-brown-b01-360x360.jpg";
+             
+           }
+              
+         };  */   
+         
+         /*----속성 변경 예제 숙제----------*/
+          window.onload = function() {
+              var chImgButton = document.querySelector("#ch-img-button1");
+              var container = document.querySelector("#img-container");
+              var imgSrc = document.querySelector("#img-src");
+              var img = container.querySelector("img");
+              //var imgText = document.getElementById("ch-img-button1");
+                 
+              chImgButton.onclick = function(){
+                 //img.src = imgText.value;
+                 img.src = imgSrc.value;
+              }
+                 
+            }; 
+            
+            /*----자식노드 변경----------*/
+            window.onload = function() {
+      var chImgButton = document.querySelector("#ch-node-button");
+      var container = document.querySelector("#ch-node-container");
+
+         chImgButton.onclick = function() {
+         /*     container.textContext = "<h1>hoho</h>";  */
+             container.innerHTML="<h1>hoho</h>"; 
+         };
+      };
+   
+   /*----텍스트 노드 추가 예제----------*/
+   window.onload = function() {
+   var addTextNodeButton = document.querySelector("#add-text-node-button");
+   var addImgNodeButton = document.querySelector("#add-img-node-button");
+   var removeNodeButton = document.querySelector("#remove-node-button");
+   var container = document.querySelector("#node-container");
+   
+   var remove11 = function(e){
+      container.removeChild(e.target);
+   }
+   var idx = 0;
+   
+      addTextNodeButton.onclick = function() {
+         
+         //1. TextNode 생성
+         var span = document.createElement("span");
+         var txt = document.createTextNode("안녕" + idx++);
+         
+         //2. container(부모) 열기
+         
+         //3. 부모에 자식을 추가
+         //container.appendChild(txt);
+         span.appendChild(txt);
+         container.appendChild(span);
+         
+         span.onclick = remove11;
+         };
+         
+      addImgNodeButton.onclick = function() {
+         /* var img = document.createElement("img");
+         img.src = "http://kinimage.naver.net/20120810_150/1344587194120Egqz8_JPEG/ghibli-50.jpg";
+         
+         container.appendChild(img); */
+         
+         container.innerHTML += '<img src = "http://kinimage.naver.net/20120810_150/1344587194120Egqz8_JPEG/ghibli-50.jpg">';
+      }
+      
+      removeNodeButton.onclick = function(e) {
+         //1. 내정된 노드를  지우기 = 막내 지우기
+         //container.parentNode // container.parentElement
+         //container.removeChild(container.lastChild); //이건 노드를 지우는거
+         
+         //2. 선택된 노드를 지우기
+         //alert(e.target);
+      }
+      
+
+   };
+
+   
+   /*----노드  바꾸기 예제----------*/
+   window.addEventListener("load", function() {
+   var swapNodeButton = document.querySelector("#swap-node-button");
+   var container = document.querySelector("#node-swap-container");
+
+      swapNodeButton.onclick = function() {
+    	  //var node1 = container.querySelector("img:first-child");
+    	  
+    	  var nodes = container.getElementsByTagName("img");
+    	  
+    	  var node1 = nodes[0];
+    	  var node1 = nodes[1];
+    	  var node3 = nodes[2];
+    	 
+    	  var nodeNext = node1.nextElementSibling;
+    	  
+    	  var oldNode = container.replaceChild(node1, node3); //원래있던 것, 새로 들어온 것
+    	  container.insertBefore(node3, nodeNext);
+
+
+         };
+
+   });
+   
+   /*----노드  바꾸기 예제 2----------*/
+   window.addEventListener("load", function() {
+   var swapNodeButton = document.querySelector("#move-up-button");
+   var container = document.querySelector("#move-up-container");
+   
+   var tbody = container.querySelector("tbody");
+   //var td = tbody.querySelector("tr:first-child td:last-child");
+   var td = tbody.firstElement.lastElementChild;
+   
+   td.onclick = function(e){
+	   alert("td");
+   }
+
+   tbody.onclick = function(e){
+	   alert("tbody");
+	   //alert("target : " + e.target.nodeName + ", current : " + e.currentTarget.nodeName );
+//	   e.target.parentNode.style.background = "pink";
+	   //e.target.style.background = "pink";
+   });
+   
+  /*  var trs = document.querySelectorAll("tbody tr");
+   for(var i=0; i<trs.length; i++)
+	   trs[i].onclick = function(e){
+	   	 e.target.style.background = "pink";
+   }; */
+   
+      moveUpButton.onclick = function() {
+
+         };
+
+   });
+   
+</script>
+
+</head>
+<body>
+   <!-- 노드 바꾸기 예제 2------------------>
+     <input id="move-up-button" type="button" value="위로 옮기기" />
+     <div id ="move-up-container">
+     	<table border="1">
+     		<thead>
+     			<tr>
+     				<td>코드</td>
+     				<td>제목</td>
+     			</tr>
+     		</thead>
+     		<tbody>
+	     		<tr>
+     				<td>1</td>
+     				<td>그래그래</td>
+     			</tr>
+     			<tr>
+     				<td>2</td>
+     				<td>좋아좋아</td>
+     			</tr>
+     		</tbody>
+     	</table>
+		
+     </div>
+     <hr/> 
+
+    <!-- 노드 바꾸기 예제------------------>
+     <input id="swap-node-button" type="button" value="노드 바꾸기" />
+     <div id ="node-swap-container">
+		<img src="http://cfile10.uf.tistory.com/image/211D2F4758307357333A86" />
+		<img src="http://cfile4.uf.tistory.com/image/271DB039589469FC0154FE" />
+		<img src="http://upload2.inven.co.kr/upload/2017/05/29/bbs/i16426597403.gif" />
+		     
+     </div>
+     <hr/> 
+   
+   <!-- 텍스트 노드 추가 예제------------------>
+     <input id="add-text-node-button" type="button" value="텍스트노드 추가" />
+     <input id="add-img-node-button" type="button" value="이미지노드 추가" />
+     <input id="remove-node-button" type="button" value="노드삭제" />
+     <div id ="node-container">
+     
+     </div>
+     <hr/>
+     
+    <!-- 자식노드 변경 ------------------>
+     <input id="ch-node-button" type="button" value="자식노드 변경" />
+     <div id ="ch-node-container">
+     hello
+     </div>
+     <hr/>
+
+   <!-- 속성 변경 예제 숙제 ------------------>
+   <input id="img-src" type="text" />
+   <input id="ch-img-button1" type="button" value="이미지 변경" />
+   <div id = "img-container">
+      <img src = "https://www.wadiz.kr/images/uploads/114492/20151217154127979.jpg"; />
+   </div>
+   <hr />
+   
+   <!-- 속성 변경 예제 ------------------>
+   <!-- <input id="img-src" type="text" />
+   <input id="ch-img-button" type="button" value="이미지 변경" />
+   <div id = "img-container">
+      <img src = "https://www.wadiz.kr/images/uploads/114492/20151217154127979.jpg"; />
+   </div>
+   <hr />    -->
+   
+   <!-- Selector API 예제 ------------------>
+   <input id="ch-button1" type="button" value="배경색 변경" />
+   <div id="module1">
+      <div>1</div>
+      <div>
+         <div>2</div>
+         <!--  comment -->
+      </div>
+      <div>3</div>
+   </div>
+   <hr />   
+   <!--노드 순회  예제 ------------------>
+   <input id="ch-button" type="button" value="배경색 변경" />
+   <div>
+      <div>1</div>
+      <div id="p">
+         <div>2</div>
+         <!--  comment -->
+      </div>
+      <div>3</div>
+   </div>
+   <hr />
+   <!-- iframe 예제 ----------------------->
+   <div>
+      <input id="nav-button" type="button" value="페이지 전환" />
+      <iframe src="notice.html" style="width:500px; height:300px;"></iframe>
+   </div>
+   
+   <!-- open a window 예제 ----------------------->
+   <div>
+      <input id="open-button" type="button" value="새창 띄우기" />
+      <input id="mov-button" type="button" value="왼쪽으로 이동" />
+      <input id="trans-button" type="button" value="페이지 이동" />
+   </div>
+   
+   
+   <hr />
+   <!-- Timer 예제 ------------------->
+   <p>
+          남은시간 <span id="count-label">60</span>초
+          <input id="count-button" type="button" value="카운트 시작" />
+      </p>
+      <hr />
+   
+   <!-- Calculator 예제 ------------------->
+   <div id="ex1">
+      <input type="text" id="x" placeholder="x값을 입력하세요" />
+      <input type="text" id="y" placeholder="y값을 입력하세요" /> 
+      =
+      <input type="button" value="더하기" id="add-button" />
+      <input type="text" value="" id="result" />
+   </div>
+</body>
+</html>
