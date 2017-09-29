@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-
-	<bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://211.238.142.247/newlecture?autoReconnect=true&amp;useSSL=false" />
-		<property name="username" value="sist" />
-		<property name="password" value="cclass" />
-
-	</bean>
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+   
+   <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+     <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+      <property name="url" value="jdbc:mysql://211.238.142.247/newlecture?autoReconnect=true&amp;useSSL=false" />
+      <property name="username" value="sist" />
+      <property name="password" value="cclass" />
+   </bean>
+   
+   <bean name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+      <property name="dataSource" ref="dataSource" /> <!--이게 있어야 접속 가능  -->
+      <property name="mapperLocations" value="classpath:com/newlecture/webapp/dao/mybatis/mapper/*.xml" />
+   </bean>
+   
+   <bean class="org.mybatis.spring.SqlSessionTemplate">
+      <constructor-arg index="0" ref="sqlSessionFactory" />
+   </bean>
+   
+   <!--  DAO 객체들   -->
+   <bean class="com.newlecture.webapp.dao.mybatis.MyBatisNoticeDao" />
+   
+   <context:annotation-config />
 </beans>
