@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newlecture.webapp.dao.NoticeFileDao">
+	<select id="getList" resultType="com.newlecture.webapp.entity.NoticeFile">
+		select * from NoticeFile where noticeId=#{noticeId}
+
+	</select>
+
+
+	<insert id="insert" parameterType="com.newlecture.webapp.entity.NoticeFile">
+		insert into NoticeFile(id, src, noticeId)
+		values((select ifnull(max(cast(id as unsigned)),0) + 1 from NoticeFile nf), #{src}, #{noticeId})
+	</insert>
+	
+	<update id="update" parameterType="com.newlecture.webapp.entity.NoticeFile">
+		update NoticeFile set src=#{src}, noticeId=#{noticeId} where id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from NoticeFile where id=#{id}
+	</delete>
+
+</mapper>
+
+
+<!-- String 형식으로 받아야 하므로 ${}를 써줘야한다. 문자를 꽂아넣기에 적합한 형식 정수형 (page) : #, $ 둘다 
+	가능 # 값을 그대로 꽂아 넣을 때 $ 값에 변경이 있을 경우 세개 이상의 인자일 경우 리플렉션 되지 않는다. 쓸 수 없다. - param1, 
+	param2, param3 형식으로 써야한다. -->
+
+
+

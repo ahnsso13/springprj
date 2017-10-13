@@ -222,6 +222,7 @@
 			var nodes = container.getElementsByTagName("img");
 
 			var node1 = nodes[0];
+			var node2 = nodes[1];
 			var node3 = nodes[2];
 			var nodeNext = node1.nextElementSibling;
 
@@ -231,83 +232,212 @@
 		};
 	});
 
-	//----노드 바꾸기 예제 2-------------------------------------------------------------------------------
-
-	window.addEventListener("load", function() {
-
+	/*----노드 바꾸기 예제2 +심화(버블링과 캡처링) ----------*/
+	window.addEventListener("load", function(e) {
 		var moveUpButton = document.querySelector("#move-up-button");
-		
 		var container = document.querySelector("#move-up-container");
-		
+
 		var checkedId = 0;
-		
-		var tbody = container.querySelector("tbody");
-		//var td = tbody.querySelector("tr:first-child td:last-child");
-		var td = tbody.firstElementChild.lastElementChild;
+
+		var tbody = container.querySelector("tbody"); /* Selector로 하면 첫번째만 나옴. SelectorAll하면 전체 다 나옴. */
+		//var td = tbody.querySelector("tr:first-child td:last-child"); /* select 기법으로 찾은 것.  */
+		var td = tbody.firstElementChild.lastElementChild; /*확실하게하려면 firstchild대신 firstElementChild로.  */
+		var tr = null;
 
 		td.addEventListener("click", function(e) {
-		   //e.stopPropagation();
+			//e.stopPropagation();
 
 			console.log("td");
 			e.target.style.background = "green";
-		}, false);
+		}, true);
 
 		tbody.addEventListener("click", function(e) {
-			console.log("tbody");
-			//alert("tbody");
-			//alert("target : " + e.target.nodeName + ", current : " + e.currentTarget.nodeName)
-			e.target.style.background = "pink";
-			//e.target.style.background = "pink";
-		}, false);
 
-		/* var trs = container.querySelectorAll("tbody tr");
-		
-		
-		for(var i=0;i<trs.length;i++)
-		   trs[i].onclick=function(e){
-		      e.target.style.background = "pink";
-		   }; */
+			if (e.target.nodeName == "INPUT") {
+
+				tr = e.target.parentElement.parentNode; //parentElement는 td까지, parentNode는 tr까지
+
+			}
+
+			//console.log("tbody");
+			//alert("target : " + e.target.nodeName + ",current : " + e.currentTarget);
+			//e.target.style.background = "pink";
+			//e.target.style.background = "pink";
+		}, true);
 
 		moveUpButton.onclick = function() {
-			   alert("");
 
+			if (tr == null)
+				return;
+
+			var bf = tr.previousElementSibling;
+			var af = tr.nextElementSibling;
+
+			var container = tr.parentNode;
+
+			container.replaceChild(tr, bf);
+			container.insertBefore(bf, af);
 		};
 	});
-	
-  //----기본 행위 막기 예제-------------------------------------------------------------------------------
-	
+	//----기본 행위 막기 예제-------------------------------------------------------------------------------
+
 	window.addEventListener("load", function() {
 		var titleText = document.querySelector("form input[name]");
 		var submitButton = document.querySelector("form input[type='submit']");
 		var cancelButton = document.querySelector("form a");
-		
-		submitButton.onclick = function(e){
-			if(titleText.value == ""){
+
+		submitButton.onclick = function(e) {
+			if (titleText.value == "") {
 				alert("제목을 입력하세요.");
 				e.preventDefault();
-				
-			}										
+			}
 		};
-		
-		cancelButton.onclick = function(e){
-			if(titleText.value != ""){
-			   if(!confirm("작성 중이던 입력을 취소하시겠습니까?"))
-				   e.preventDefault();
+
+		cancelButton.onclick = function(e) {
+			if (titleText.value != "") {
+				if (!confirm("작성 중이던 입력을 취소하시겠습니까?"))
+					e.preventDefault();
 			}
 		}
 	});
+
+	/*--------------------------- 노드 복제 예제 -----------------------------*/
+	window.addEventListener("load", function() {
+
+		var cloneButton = document
+				.querySelector("#ex-clone input[value='단순복제']");
+		var tbody = document.querySelector("#ex-clone tbody");
+
+		cloneButton.onclick = function(e) {
+			var tr = tbody.querySelector("tr");
+
+			var clone = tr.cloneNode(true);
+			tbody.appendChlid(clone);
+
+		};
+
+	});
 	
-	
+	/*  ----------------------template 노드 복제 예제 & Ajax요청 예제 -------------------------------- */
+	window.addEventListener("load", function() {
+	      var cloneButton = document.querySelector("#ex2-clone input[value='단순복제']");
+	      var ajaxButton = document.querySelector("#ex2-clone input[value='Ajax요청']");
+	      var tbody = document.querySelector("#ex2-clone tbody");
+	      var template = document.querySelector("#ex2-clone template");         
+	      
+	      var data = [{id:"1", title:"2", writerId:"3"},{id :"4", title:"5", writerId:"6"},{id : "7", title:"8", writerId:"9"}];
+	      
+	      ajaxButton.onclick = function(e){
+	    	  var xhr = new XmlHttpRequest(); //모든 브라우저에 호환되는 방식
+	    	  
+	      };
+	      cloneButton.onclick = function(e){
+	   /*  tempalte가 가지고 있는 내용은 content가 둘러싸고 있어야 하기땀시 content가 있으면 tempalte가 지원이 된다는 무 ㅓ그런이야기? */
+	      if('content' in template){
+	                  
+	        /*  //tempalte의 content에 값을 설정
+	         var tds = template.content.querySelectorAll("td");
+	         
+	         tds[0].appendChild(document.createTextNode("1"));
+	         tds[1].textContent = "test title";
+	         tds[2].textContent = "newlec";
+	                     
+	         // 값이 설정된 content를 복제
+	         var clone = document.importNode(template.content, true); */
+	         
+	          //tempalte의 content에 값을 설정
+	          
+	          for(var i = 0; i<data.length; i++){
+	            var clone = document.importNode(template.content, true);
+	            var tds = clone.querySelectorAll("td");
+	            
+	            tds[0].appendChild(document.createTextNode(data[i].id));
+	            tds[1].textContent = data[i].title;
+	            tds[2].textContent = data[i].writerId;
+	                      
+	            // 값이 설정된 content를 복제         
+	                  
+	         // 복제된 tr을 노드 트리에 추가   
+	            tbody.appendChild(clone);
+	          }
+	      }
+	      
+	      };
+	   });   
 </script>
 
 </head>
 <body>
+	<!-- --------------------------------------template 노드 복제 예제 --------------------------------------------->
 
-<!-- ---------------------기본 행위 막기 예제 -------------------------------->
+	<div id="ex2-clone">
+
+		<div>
+			<input type="button" value="단순복제" />
+			<input type="button" value="Ajax요청" />
+		</div>
+		<div id="clone-container">
+
+			<table border="1">
+				<thead>
+					<tr>
+						<td>코드</td>
+						<td>코드</td>
+						<td>제목</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input name="id" type="radio" value="1" /></td>
+						<td>1</td>
+						<td>하자고 하길 잘했어</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<!--  template는 보여지지않고 안에 tr이 위에 테이블에서 없는경우 template에 있는 tr을 쓰겠다는 뭐 그런 지원되지 않는 브라우저는 있음-->
+			<template>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			</template>
+		</div>
+	</div>
+	<hr />
+
+	<!----------------------------노드 복제 예제  ------------------------------->
+	<div id="ex-clone">
+		<div>
+			<input type="button" value="단순복제" />
+		</div>
+
+		<div id="clone-container">
+			<table border="1">
+				<thead>
+					<tr>
+						<td></td>
+						<td>코드</td>
+						<td>제목</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input name="id" type="radio" value="1" /></td>
+						<td>1</td>
+						<td>그래그래</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<hr />
+
+	<!-- ---------------------기본 행위 막기 예제 -------------------------------->
 	<form>
-		<input type="text" name="title" /> <br />
-		<input type="submit" value="전송" /> <br />
-		<a href="">취소</a>
+		<input type="text" name="title" /> <br /> <input type="submit"
+			value="전송" /> <br /> <a href="">취소</a>
 	</form>
 	<hr />
 
@@ -317,7 +447,7 @@
 		<table border="1">
 			<thead>
 				<tr>
-					<td></td>					
+					<td></td>
 					<td>코드</td>
 					<td>제목</td>
 				</tr>
@@ -360,7 +490,8 @@
 	<div id="node-swap-container">
 		<img src="http://cfile10.uf.tistory.com/image/211D2F4758307357333A86" />
 		<img src="http://cfile4.uf.tistory.com/image/271DB039589469FC0154FE" />
-		<img src="https://s-media-cache-ak0.pinimg.com/originals/78/9a/90/789a90cf2b90b8275863465c83d33412.gif" />
+		<img
+			src="https://s-media-cache-ak0.pinimg.com/originals/78/9a/90/789a90cf2b90b8275863465c83d33412.gif" />
 
 	</div>
 	<hr />

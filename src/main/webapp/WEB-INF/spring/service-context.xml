@@ -7,7 +7,7 @@
    
    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
      <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-      <property name="url" value="jdbc:mysql://211.238.142.247/newlecture?autoReconnect=true&amp;useSSL=false" />
+      <property name="url" value="jdbc:mysql://211.238.142.247/newlecture?autoReconnect=true&amp;useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
       <property name="username" value="sist" />
       <property name="password" value="cclass" />
    </bean>
@@ -22,7 +22,9 @@
    </bean>
    
    <!--  DAO 객체들   -->
+   
    <bean class="com.newlecture.webapp.dao.mybatis.MyBatisNoticeDao" />
+   <bean class="com.newlecture.webapp.dao.mybatis.MyBatisNoticeFileDao" />
    
    <context:annotation-config />
 </beans>

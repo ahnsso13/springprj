@@ -17,7 +17,7 @@ public class Notice {
 
 
    public Notice(String id, String title, String content, String writerId, Date regDate, int hit, String fileName) {
-	super();
+	//super();
 	this.id = id;
 	this.title = title;
 	this.content = content;
@@ -27,6 +27,13 @@ public class Notice {
 	this.fileName = fileName;
 }
 
+
+	public Notice(String title, String content, String writerId) {
+		this.title = title;
+		this.content = content;
+		this.writerId = writerId;
+		
+	}
 
 
 public String getId() {

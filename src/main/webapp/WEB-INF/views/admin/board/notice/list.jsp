@@ -47,7 +47,7 @@
                <c:forEach var="n" items="${list}">               
                <tr>
                   <td>${n.id}</td>
-                  <td class="title indent"><a href="notice/${n.id}">JSP란 무엇인가JSP란 무엇인가JSP란 무엇인가JSP란 무엇인가JSP란 무엇인가JSP란 무엇인가JSP란 무엇인가JSP란 무엇인가JSP란 무엇인가JSP란 무엇인가</a></td>
+                  <td class="title indent"><a href="notice/${n.id}">${n.title}</a></td>
                   <td>newlec</td>
                   <td>
                      <fmt:formatDate pattern="yyyy-MM-dd" value="2017-02-28"/>      
